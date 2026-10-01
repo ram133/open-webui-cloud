@@ -2,6 +2,8 @@
 import urllib.request
 import urllib.parse
 import json
+import os
+import datetime
 
 BOTS = [
     {
@@ -45,6 +47,7 @@ def send_message(token, chat_id, text):
 def poll_bot(bot):
     token = bot["token"]
     url = f"https://api.telegram.org/bot{token}/getUpdates?timeout=2"
+    matched_events = []
     try:
         req = urllib.request.Request(url)
         with urllib.request.urlopen(req, timeout=10) as response:
@@ -52,7 +55,6 @@ def poll_bot(bot):
             if data.get("ok"):
                 for result in data.get("result", []):
                     update_id = result["update_id"]
-                    # Acknowledge update immediately so it's not re-fetched
                     urllib.request.urlopen(f"https://api.telegram.org/bot{token}/getUpdates?offset={update_id + 1}&timeout=1")
                     
                     msg = result.get("message") or result.get("edited_message")
@@ -60,13 +62,34 @@ def poll_bot(bot):
                         chat_id = msg["chat"]["id"]
                         text = msg["text"].lower()
                         if any(kw in text for kw in KEYWORDS):
-                            print(f"[{bot['name']}] Keyword matched in chat {chat_id}: '{msg['text']}'")
-                            send_message(token, chat_id, bot["response"])
+                            success = send_message(token, chat_id, bot["response"])
+                            matched_events.append({
+                                "chat_id": chat_id,
+                                "text": msg["text"],
+                                "matched": True,
+                                "response_sent": success
+                            })
     except Exception as e:
         print(f"Error polling {bot['name']}: {e}")
+    return matched_events
 
 if __name__ == "__main__":
     print("Running Cloud Telegram Polling Pass...")
+    report = {
+        "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
+        "bots_checked": len(BOTS),
+        "activity": {}
+    }
+    
+    total_matches = 0
     for bot in BOTS:
-        poll_bot(bot)
-    print("Cloud Polling Complete.")
+        events = poll_bot(bot)
+        report["activity"][bot["name"]] = events
+        total_matches += len(events)
+        
+    report["total_matches"] = total_matches
+    
+    with open("run_report.json", "w") as f:
+        json.dump(report, f, indent=2)
+        
+    print(f"Polling Complete. Total keyword matches processed: {total_matches}")

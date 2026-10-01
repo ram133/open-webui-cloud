@@ -1,10 +1,10 @@
 # https://github.com/ram133/open-webui-cloud
-name: Telegram Bot Cloud Poller
+name: Telegram Bot Cloud Poller & Reporter
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # Runs every 5 minutes automatically
-  workflow_dispatch:      # Allows manual trigger from GitHub
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
 
 jobs:
   poll:
@@ -18,5 +18,26 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Run Telegram Poller
+      - name: Run Telegram Poller & Generate Report
         run: python3 bot_poll.py
+
+      - name: Upload Run Report Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: telegram-poll-report
+          path: run_report.json
+
+      - name: Publish Summary to GitHub Actions UI
+        run: |
+          echo "### 🤖 Telegram Bot Cloud Poll Summary" >> $GITHUB_STEP_SUMMARY
+          echo "**Timestamp:** $(date -u)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Bot Name | Matches Found | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "| :--- | :---: | :---: |" >> $GITHUB_STEP_SUMMARY
+          python3 -c "
+          import json
+          with open('run_report.json') as f:
+              data = json.load(f)
+          for bot, events in data['activity'].items():
+              print(f'| {bot} | {len(events)} | ✅ Active |')
+          " >> $GITHUB_STEP_SUMMARY
