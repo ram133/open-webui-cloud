@@ -32,13 +32,43 @@ BOTS = [
     }
 ]
 
-def send_message(token, chat_id, text):
+def setup_bot_commands(token):
+    url = f"https://api.telegram.org/bot{token}/setMyCommands"
+    commands = [
+        {"command": "start", "description": "Open main menu & portal"},
+        {"command": "portal", "description": "Launch Web App in Telegram"},
+        {"command": "pricing", "description": "View hourly services & pricing"},
+        {"command": "support", "description": "Get direct support contact"}
+    ]
+    payload = urllib.parse.urlencode({"commands": json.dumps(commands)}).encode('utf-8')
+    try:
+        urllib.request.urlopen(urllib.request.Request(url, data=payload, method="POST"), timeout=5)
+    except Exception:
+        pass
+
+def send_webapp_message(token, chat_id, bot_info):
     url = f"https://api.telegram.org/bot{token}/sendMessage"
+    
+    keyboard = {
+        "inline_keyboard": [
+            [
+                {"text": "🚀 Launch Web App", "web_app": {"url": bot_info["url"]}},
+                {"text": "📂 Central Hub", "url": "https://ram133.github.io/open-webui-cloud/"}
+            ],
+            [
+                {"text": "💳 Hourly Services", "url": "https://www.ray.services/work/index.php"},
+                {"text": "📞 Support", "url": "mailto:crh2509@icloud.com"}
+            ]
+        ]
+    }
+    
     payload = urllib.parse.urlencode({
         "chat_id": chat_id,
-        "text": text,
-        "parse_mode": "Markdown"
+        "text": f"🤖 *{bot_info['name']}*\n\n_{bot_info['description']}_\n\nTap below to launch the native Web App or explore central tools:",
+        "parse_mode": "Markdown",
+        "reply_markup": json.dumps(keyboard)
     }).encode('utf-8')
+    
     try:
         req = urllib.request.Request(url, data=payload, method="POST")
         with urllib.request.urlopen(req, timeout=10) as response:
@@ -48,6 +78,8 @@ def send_message(token, chat_id, text):
 
 def handle_incoming(bot):
     token = bot["token"]
+    setup_bot_commands(token)
+    
     url = f"https://api.telegram.org/bot{token}/getUpdates?timeout=2"
     events = []
     
@@ -63,34 +95,9 @@ def handle_incoming(bot):
                     msg = result.get("message") or result.get("edited_message")
                     if msg and "text" in msg and "chat" in msg:
                         chat_id = msg["chat"]["id"]
-                        text = msg["text"].strip()
-                        lower_text = text.lower()
+                        text = msg["text"].strip().lower()
                         
-                        # Determine automated response
-                        if lower_text.startswith("/start") or lower_text.startswith("/help"):
-                            reply = (
-                                f"🤖 *Welcome to {bot['name']}*\n\n"
-                                f"_{bot['description']}_\n\n"
-                                f"🚀 Access Portal: {bot['url']}\n"
-                                f"📂 Central Hub: https://ram133.github.io/open-webui-cloud/\n\n"
-                                f"*Commands:*\n"
-                                f"• /portal - Get direct app link\n"
-                                f"• /support - Get contact details\n"
-                                f"• /price - View hourly service info"
-                            )
-                        elif lower_text.startswith("/portal"):
-                            reply = f"👉 *Your Portal Link:* {bot['url']}"
-                        elif lower_text.startswith("/support") or "support" in lower_text:
-                            reply = "📞 *Support Contact:* crh2509@icloud.com | Signal: 671-456-6963"
-                        elif lower_text.startswith("/price") or "price" in lower_text or "cost" in lower_text:
-                            reply = "💳 *Hourly Services & Pricing:* https://www.ray.services/work/index.php"
-                        elif any(kw in lower_text for kw in ["openwebui", "texcool", "ray2fb", "0724", "cloud", "github", "deploy", "ai", "bot"]):
-                            reply = f"🚀 *Automated Match!*\nExplore our platform: {bot['url']}\nSupport: crh2509@icloud.com"
-                        else:
-                            # Default engagement reply for any message
-                            reply = f"Thanks for messaging {bot['name']}! Check out our live tools at {bot['url']} or type /help for options."
-                            
-                        success = send_message(token, chat_id, reply)
+                        success = send_webapp_message(token, chat_id, bot)
                         events.append({
                             "chat_id": chat_id,
                             "text": text,
@@ -101,7 +108,7 @@ def handle_incoming(bot):
     return events
 
 if __name__ == "__main__":
-    print("Running Advanced Cloud Telegram Bot Daemon...")
+    print("Running Advanced WebApp Telegram Daemon...")
     report = {
         "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
         "bots_checked": len(BOTS),
