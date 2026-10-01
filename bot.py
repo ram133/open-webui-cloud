@@ -4,6 +4,7 @@ import urllib.parse
 import json
 import os
 import datetime
+import subprocess
 
 BOTS = [
     {
@@ -32,13 +33,28 @@ BOTS = [
     }
 ]
 
+LEADS_FILE = "leads.json"
+
+def load_leads():
+    if os.path.exists(LEADS_FILE):
+        try:
+            with open(LEADS_FILE, 'r') as f:
+                return json.load(f)
+        except Exception:
+            pass
+    return {"chats": [], "total_interactions": 0}
+
+def save_leads(data):
+    with open(LEADS_FILE, 'w') as f:
+        json.dump(data, f, indent=2)
+
 def setup_bot_commands(token):
     url = f"https://api.telegram.org/bot{token}/setMyCommands"
     commands = [
-        {"command": "start", "description": "Open main menu & portal"},
-        {"command": "portal", "description": "Launch Web App in Telegram"},
-        {"command": "pricing", "description": "View hourly services & pricing"},
-        {"command": "support", "description": "Get direct support contact"}
+        {"command": "start", "description": "Launch Web App & Main Menu"},
+        {"command": "portal", "description": "Open Decentralized Portal"},
+        {"command": "pricing", "description": "Hourly services & Stripe payment"},
+        {"command": "support", "description": "Direct contact & Signal info"}
     ]
     payload = urllib.parse.urlencode({"commands": json.dumps(commands)}).encode('utf-8')
     try:
@@ -57,14 +73,14 @@ def send_webapp_message(token, chat_id, bot_info):
             ],
             [
                 {"text": "💳 Hourly Services", "url": "https://www.ray.services/work/index.php"},
-                {"text": "📞 Support", "url": "mailto:crh2509@icloud.com"}
+                {"text": "📞 Support / Signal", "url": "https://signal.me/#u/iknowme.08"}
             ]
         ]
     }
     
     payload = urllib.parse.urlencode({
         "chat_id": chat_id,
-        "text": f"🤖 *{bot_info['name']}*\n\n_{bot_info['description']}_\n\nTap below to launch the native Web App or explore central tools:",
+        "text": f"🤖 *{bot_info['name']} (Autonomous CRM)*\n\n_{bot_info['description']}_\n\nTap below to launch the native Web App, access payment tools, or connect directly:",
         "parse_mode": "Markdown",
         "reply_markup": json.dumps(keyboard)
     }).encode('utf-8')
@@ -76,7 +92,7 @@ def send_webapp_message(token, chat_id, bot_info):
     except Exception:
         return False
 
-def handle_incoming(bot):
+def handle_incoming(bot, leads_db):
     token = bot["token"]
     setup_bot_commands(token)
     
@@ -94,11 +110,17 @@ def handle_incoming(bot):
                     
                     msg = result.get("message") or result.get("edited_message")
                     if msg and "text" in msg and "chat" in msg:
-                        chat_id = msg["chat"]["id"]
+                        chat_id = str(msg["chat"]["id"])
                         text = msg["text"].strip().lower()
+                        
+                        # Register lead in persistent CRM
+                        if chat_id not in leads_db["chats"]:
+                            leads_db["chats"].append(chat_id)
+                        leads_db["total_interactions"] += 1
                         
                         success = send_webapp_message(token, chat_id, bot)
                         events.append({
+                            "bot": bot["name"],
                             "chat_id": chat_id,
                             "text": text,
                             "response_sent": success
@@ -108,7 +130,9 @@ def handle_incoming(bot):
     return events
 
 if __name__ == "__main__":
-    print("Running Advanced WebApp Telegram Daemon...")
+    print("Running Autonomous Cloud CRM & Bot Daemon...")
+    leads_db = load_leads()
+    
     report = {
         "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
         "bots_checked": len(BOTS),
@@ -117,13 +141,16 @@ if __name__ == "__main__":
     
     total_interactions = 0
     for bot in BOTS:
-        events = handle_incoming(bot)
+        events = handle_incoming(bot, leads_db)
         report["activity"][bot["name"]] = events
         total_interactions += len(events)
         
     report["total_interactions"] = total_interactions
+    report["total_unique_leads"] = len(leads_db["chats"])
+    
+    save_leads(leads_db)
     
     with open("run_report.json", "w") as f:
         json.dump(report, f, indent=2)
         
-    print(f"Polling Complete. Total interactions processed: {total_interactions}")
+    print(f"Processing Complete. Total unique leads: {len(leads_db['chats'])}")

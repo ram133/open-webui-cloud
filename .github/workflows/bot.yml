@@ -1,0 +1,50 @@
+# https://github.com/ram133/open-webui-cloud
+name: Autonomous Bot CRM & Cloud Poller
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  crm_poll:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Run Bot Daemon & CRM Sync
+        run: python3 bot.py
+
+      - name: Commit & Push Persistent CRM State
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add leads.json run_report.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-sync CRM leads and run report [skip ci]" && git push)
+
+      - name: Publish Summary to GitHub Actions UI
+        run: |
+          echo "### 🚀 Autonomous Bot CRM & WebApp Summary" >> $GITHUB_STEP_SUMMARY
+          echo "**Timestamp:** $(date -u)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          python3 -c "
+          import json
+          with open('run_report.json') as f:
+              data = json.load(f)
+          print(f'- **Total Unique Leads:** {data[\"total_unique_leads\"]}')
+          print(f'- **Interactions This Run:** {data[\"total_interactions\"]}')
+          print('')
+          print('| Bot Name | Events Processed |')
+          print('| :--- | :---: |')
+          for bot, events in data['activity'].items():
+              print(f'| {bot} | {len(events)} |')
+          " >> $GITHUB_STEP_SUMMARY
