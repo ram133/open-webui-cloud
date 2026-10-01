@@ -4,7 +4,7 @@ import urllib.parse
 import json
 import os
 import datetime
-import subprocess
+import random
 
 BOTS = [
     {
@@ -35,6 +35,12 @@ BOTS = [
 
 LEADS_FILE = "leads.json"
 
+DEV_TIPS = [
+    "💡 *Dev Tip:* Explore our GitHub repos to inspect single-file PWA architectures and serverless workflows.",
+    "🚀 *Ecosystem Insight:* All 4 bots connect directly back to the Central Hub at ram133.github.io/open-webui-cloud/",
+    "⚡ *Efficiency:* Automate your SaaS stack with zero-cost GitHub Actions cron runners."
+]
+
 def load_leads():
     if os.path.exists(LEADS_FILE):
         try:
@@ -51,8 +57,9 @@ def save_leads(data):
 def setup_bot_commands(token):
     url = f"https://api.telegram.org/bot{token}/setMyCommands"
     commands = [
-        {"command": "start", "description": "Launch Web App & Main Menu"},
+        {"command": "start", "description": "Launch Web App & Ecosystem"},
         {"command": "portal", "description": "Open Decentralized Portal"},
+        {"command": "scavenger", "description": "Play the GitHub Easter Egg Hunt"},
         {"command": "pricing", "description": "Hourly services & Stripe payment"},
         {"command": "support", "description": "Direct contact & Signal info"}
     ]
@@ -62,8 +69,25 @@ def setup_bot_commands(token):
     except Exception:
         pass
 
-def send_webapp_message(token, chat_id, bot_info):
+def send_advanced_message(token, chat_id, bot_info, text_input):
     url = f"https://api.telegram.org/bot{token}/sendMessage"
+    
+    # Check for gamified Easter Egg
+    if any(k in text_input for k in ["scavenger", "secret", "easteregg", "key"]):
+        reply_text = (
+            f"🎉 *Scavenger Hunt Unlocked!*\n\n"
+            f"You found the secret trigger! Inspect our source code on GitHub, fork the repository, "
+            f"and claim your 20% discount on hourly engineering services:\n\n"
+            f"👉 https://www.ray.services/work/index.php"
+        )
+    else:
+        tip = random.choice(DEV_TIPS)
+        reply_text = (
+            f"🤖 *{bot_info['name']} (Growth Engine)*\n\n"
+            f"_{bot_info['description']}_\n\n"
+            f"{tip}\n\n"
+            f"Tap below to launch the native Web App, explore sibling portals, or book services:"
+        )
     
     keyboard = {
         "inline_keyboard": [
@@ -72,15 +96,19 @@ def send_webapp_message(token, chat_id, bot_info):
                 {"text": "📂 Central Hub", "url": "https://ram133.github.io/open-webui-cloud/"}
             ],
             [
-                {"text": "💳 Hourly Services", "url": "https://www.ray.services/work/index.php"},
-                {"text": "📞 Support / Signal", "url": "https://signal.me/#u/iknowme.08"}
+                {"text": "🌐 Explore Sibling Portals", "url": "https://ram133.github.io/open-webui-cloud/"},
+                {"text": "💳 Hourly Services", "url": "https://www.ray.services/work/index.php"}
+            ],
+            [
+                {"text": "🎮 Play Scavenger Hunt", "callback_data": "scavenger"},
+                {"text": "📞 Signal Support", "url": "https://signal.me/#u/iknowme.08"}
             ]
         ]
     }
     
     payload = urllib.parse.urlencode({
         "chat_id": chat_id,
-        "text": f"🤖 *{bot_info['name']} (Autonomous CRM)*\n\n_{bot_info['description']}_\n\nTap below to launch the native Web App, access payment tools, or connect directly:",
+        "text": reply_text,
         "parse_mode": "Markdown",
         "reply_markup": json.dumps(keyboard)
     }).encode('utf-8')
@@ -113,12 +141,11 @@ def handle_incoming(bot, leads_db):
                         chat_id = str(msg["chat"]["id"])
                         text = msg["text"].strip().lower()
                         
-                        # Register lead in persistent CRM
                         if chat_id not in leads_db["chats"]:
                             leads_db["chats"].append(chat_id)
                         leads_db["total_interactions"] += 1
                         
-                        success = send_webapp_message(token, chat_id, bot)
+                        success = send_advanced_message(token, chat_id, bot, text)
                         events.append({
                             "bot": bot["name"],
                             "chat_id": chat_id,
@@ -130,7 +157,7 @@ def handle_incoming(bot, leads_db):
     return events
 
 if __name__ == "__main__":
-    print("Running Autonomous Cloud CRM & Bot Daemon...")
+    print("Running Advanced Autonomous Marketing Bot Daemon...")
     leads_db = load_leads()
     
     report = {
