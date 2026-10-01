@@ -5,6 +5,7 @@ import subprocess
 import time
 
 LEDGER_FILE = "guam_coins.json"
+MY_PHONE = "+16714566963"
 
 def send_imessage(phone, message):
     script = f'''
@@ -18,7 +19,7 @@ def send_imessage(phone, message):
         subprocess.run(['osascript', '-e', script], check=True, timeout=10)
         return True
     except Exception:
-        return false
+        return False
 
 def run_batch():
     if not os.path.exists(LEDGER_FILE):
@@ -32,15 +33,28 @@ def run_batch():
     status = data["outreach_status"]
     
     count = 0
+    
+    # Priority check: Always send to your personal number first on every run for live verification
+    if MY_PHONE in status:
+        msg = f"Hafa Adai! [Live System Ping] You've been airdropped 100 eco-coins to your Guam number ({MY_PHONE}). We're building local scarcity and buying back tokens. What is your best offer?"
+        print(f"Sending priority live verification ping to {MY_PHONE}...")
+        if send_imessage(MY_PHONE, msg):
+            status[MY_PHONE] = "sent"
+            count += 1
+            time.sleep(5)
+            
+    # Then proceed with regular batch pagination for other numbers
     for phone, state in status.items():
-        if state == "pending" and count < 50: # Batch rate-limit to ensure genuine pacing
+        if phone == MY_PHONE:
+            continue
+        if state == "pending" and count < 50:
             msg = f"Hafa Adai! You've been airdropped 100 eco-coins to your Guam number ({phone}). We're building local scarcity and buying back tokens. What is your best offer?"
             print(f"Sending natural outreach to {phone}...")
             
             if send_imessage(phone, msg):
                 status[phone] = "sent"
                 count += 1
-                time.sleep(20) # Organic spacing between messages
+                time.sleep(20)
             else:
                 status[phone] = "failed"
                 
