@@ -1,0 +1,14 @@
+{
+  "supply": 1000000,
+  "balances": {
+    "treasury": 1000000
+  },
+  "history": [
+    {
+      "from": "genesis",
+      "to": "treasury",
+      "amount": 1000000,
+      "hash": "0"
+    }
+  ]
+}
