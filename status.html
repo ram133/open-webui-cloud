@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Health & Wellness Hub | 671 Ecosystem</title>
+    <title>System Status & Power Check | 671 Ecosystem</title>
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #07090e; color: #f8fafc; margin: 0; padding: 20px; display: flex; justify-content: center; }
         .container { max-width: 900px; width: 100%; background: #111827; padding: 35px; border-radius: 16px; border: 1px solid #1f2937; }
@@ -13,14 +13,14 @@
         .card { background: #1f2937; padding: 20px; border-radius: 12px; border: 1px solid #374151; display: flex; flex-direction: column; justify-content: space-between; }
         .card h3 { color: #f1f5f9; margin-top: 0; font-size: 18px; }
         .card p { color: #9ca3af; font-size: 14px; line-height: 1.5; }
-        .price { font-size: 18px; color: #4ade80; font-weight: bold; margin: 15px 0; }
-        button.buy-btn { background: #059669; color: white; padding: 12px; border-radius: 8px; border: none; font-size: 15px; font-weight: bold; cursor: pointer; text-align: center; }
-        button.buy-btn:hover { background: #047857; }
+        .status-badge { display: inline-block; padding: 6px 12px; border-radius: 6px; font-weight: bold; font-size: 14px; margin: 15px 0; }
+        .online { background: #065f46; color: #34d399; }
+        .offline { background: #7f1d1d; color: #fca5a5; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>💪 Health & Wellness Hub</h1>
+        <h1>⚡ System Status & Power Monitor</h1>
                 <nav style="display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; background: #1f2937; padding: 10px; border-radius: 10px; margin-bottom: 25px; border: 1px solid #374151;">
             <a href="economy_hub.html" style="color: #38bdf8; text-decoration: none; font-weight: bold; font-size: 11px; padding: 3px 4px;">🌐 Hub</a>
             <a href="ai_toolkit.html" style="color: #38bdf8; text-decoration: none; font-weight: bold; font-size: 11px; padding: 3px 4px;">🤖 AI</a>
@@ -36,39 +36,36 @@
             <a href="community_hub.html" style="color: #38bdf8; text-decoration: none; font-weight: bold; font-size: 11px; padding: 3px 4px;">👥 Community</a>
             <a href="status.html" style="color: #38bdf8; text-decoration: none; font-weight: bold; font-size: 11px; padding: 3px 4px;">⚡ Status</a>
         </nav>
-        <p class="subtitle">Peak physical conditioning protocols, recovery trackers, and biohacking utilities purchasable with 671-Coins.</p>
+        <p class="subtitle">Live diagnostics for local iMac operations, GitHub Pages deployment, and backup power states.</p>
         
         <div class="grid">
             <div class="card">
                 <div>
-                    <h3>1. Functional Hypertrophy & Strength Routine</h3>
-                    <p>Structured 4-day progressive overload program designed for muscular development and foundational power.</p>
+                    <h3>1. Local iMac Node</h3>
+                    <p>M3 iMac terminal session, local Ollama models, and saas-stack workspace repository monitoring.</p>
                 </div>
                 <div>
-                    <div class="price">15 671-Coins</div>
-                    <button class="buy-btn" onclick="alert('Purchase successful! Hypertrophy protocol downloaded.')">Buy with 671-Coins</button>
-                </div>
-            </div>
-
-            <div class="card">
-                <div>
-                    <h3>2. Circadian Sleep Optimization Protocol</h3>
-                    <p>Actionable neurobiology and lighting framework for deep restorative sleep and recovery enhancement.</p>
-                </div>
-                <div>
-                    <div class="price">10 671-Coins</div>
-                    <button class="buy-btn" onclick="alert('Purchase successful! Sleep protocol unlocked.')">Buy with 671-Coins</button>
+                    <div class="status-badge online">🟢 Online / Active</div>
                 </div>
             </div>
 
             <div class="card">
                 <div>
-                    <h3>3. Metabolic & Longevity Nutrition Guide</h3>
-                    <p>Macro-nutrient balancing strategy and intermittent fueling blueprint for sustained energy and metabolic health.</p>
+                    <h3>2. GitHub Pages CDN</h3>
+                    <p>Cloud deployment status for ram133.github.io/open-webui-cloud ecosystem and static asset propagation.</p>
                 </div>
                 <div>
-                    <div class="price">20 671-Coins</div>
-                    <button class="buy-btn" onclick="alert('Purchase successful! Nutrition guide unlocked.')">Buy with 671-Coins</button>
+                    <div class="status-badge online">🟢 Synchronized</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div>
+                    <h3>3. Backup Power & UPS</h3>
+                    <p>Monitoring local grid stability. In the event of a power outage, transition seamlessly to battery backup.</p>
+                </div>
+                <div>
+                    <div class="status-badge online">⚡ UPS Ready</div>
                 </div>
             </div>
         </div>
