@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>671-Coin | Guam Phone Token Economy</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f172a; color: #f8fafc; margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .container { max-width: 600px; width: 100%; background: #1e293b; padding: 30px; border-radius: 16px; border: 1px solid #334155; }
+        h1 { color: #38bdf8; font-size: 24px; margin-top: 0; }
+        .stat-box { background: #0f172a; padding: 15px; border-radius: 10px; margin-bottom: 15px; border: 1px solid #475569; }
+        .price { font-size: 22px; color: #4ade80; font-weight: bold; }
+        input, button { width: 100%; padding: 12px; margin-top: 10px; border-radius: 8px; border: none; font-size: 16px; box-sizing: border-box; }
+        input { background: #334155; color: white; }
+        button { background: #3b82f6; color: white; font-weight: bold; cursor: pointer; }
+        button:hover { background: #2563eb; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🪙 671-Coin Economy</h1>
+        <p>The sovereign digital currency distributed to Guam phone numbers.</p>
+        
+        <div class="stat-box">
+            <h3>Market Buyback Price</h3>
+            <div class="price" id="price">$0.45 USD per 671-Coin</div>
+        </div>
+
+        <div class="stat-box">
+            <h3>Check Your Guam Phone Balance</h3>
+            <input type="text" id="phone" placeholder="Enter phone e.g. +16714561000">
+            <button onclick="checkBalance()">Check Balance</button>
+            <p id="result" style="margin-top: 15px; font-weight: bold; color: #38bdf8;"></p>
+        </div>
+    </div>
+
+    <script>
+        function checkBalance() {
+            const p = document.getElementById('phone').value.trim();
+            const res = document.getElementById('result');
+            if(p.startsWith('+1671')) {
+                res.innerText = "Balance for " + p + ": 1,000 671-Coins (Airdropped)";
+            } else {
+                res.innerText = "Number not found in initial 671 airdrop registry.";
+            }
+        }
+    </script>
+</body>
+</html>
