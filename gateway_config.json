@@ -1,0 +1,10 @@
+{
+  "mode": "production",
+  "gateway_port": 8787,
+  "currency": "671-Coin / USD",
+  "stripe_integration": "active",
+  "paypal_email": "crh2509@icloud.com",
+  "public_endpoints": [
+    "https://ram133.github.io/open-webui-cloud/"
+  ]
+}
