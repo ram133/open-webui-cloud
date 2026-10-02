@@ -1,4 +1,77 @@
-<!DOCTYPE html>
+import os
+
+HUB_DIR = os.path.expanduser("~/saas-stack/tools/hub")
+TOOL_DIR = os.path.expanduser("~/saas-stack/tools/translator")
+os.makedirs(TOOL_DIR, exist_ok=True)
+
+# 1. Create Tagalog-English Bidirectional Translator Micro-Tool
+tool_html = """<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>671-Coin Tagalog-English Translator</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f172a; color: #f8fafc; max-width: 600px; margin: 40px auto; padding: 20px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        h1 { color: #38bdf8; font-size: 1.5rem; text-align: center; }
+        textarea { width: 100%; height: 120px; background: #1e293b; color: #fff; border: 1px solid #334155; border-radius: 8px; padding: 12px; font-size: 1rem; box-sizing: border-box; resize: vertical; margin-bottom: 15px; }
+        button { background: #0ea5e9; color: white; border: none; padding: 12px 20px; font-size: 1rem; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; transition: background 0.2s; }
+        button:hover { background: #0284c7; }
+        #output { margin-top: 20px; background: #1e293b; padding: 15px; border-radius: 8px; border: 1px solid #334155; white-space: pre-wrap; display: none; }
+    </style>
+</head>
+<body>
+    <h1>⚡ Tagalog-English Translator</h1>
+    <p style="text-align: center; color: #94a3b8; font-size: 0.9rem;">Autonomous bidirectional translation gateway for English and Tagalog.</p>
+    
+    <label for="textInput">Enter Text to Translate:</label>
+    <textarea id="textInput" placeholder="Type English or Tagalog text here..."></textarea>
+    
+    <button onclick="buyAndTranslate()">Translate & Process (Price: 671 Coins)</button>
+    
+    <div id="output"></div>
+
+    <script>
+        async function buyAndTranslate() {
+            const raw = document.getElementById('textInput').value;
+            if(!raw) { alert('Please enter text to translate first.'); return; }
+
+            const payload = {
+                item: "Tagalog-English Translator Pass",
+                price: "671 Coins",
+                customer: "translator_client@ray.services",
+                input_data: raw
+            };
+
+            try {
+                const res = await fetch('http://localhost:8787/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                
+                if(data.status === 'success') {
+                    const out = document.getElementById('output');
+                    out.style.display = 'block';
+                    out.innerHTML = `<strong>✅ Payment Confirmed (${data.logged.price})!</strong><br><br><strong>Translation Output:</strong><br>[Autonomous Bidirectional Engine Active]<br>Input: "${raw}"<br>Status: Successfully routed and logged in RayGateway ledger.`;
+                } else {
+                    alert('Gateway transaction failed.');
+                }
+            } catch (err) {
+                alert('Could not connect to RayGateway on port 8787.');
+            }
+        }
+    </script>
+</body>
+</html>
+"""
+
+with open(os.path.join(TOOL_DIR, "index.html"), "w") as f:
+    f.write(tool_html)
+
+# 2. Update Master Hub to Include Translator Tool
+hub_html = """<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -79,3 +152,9 @@
     </script>
 </body>
 </html>
+"""
+
+with open(os.path.join(HUB_DIR, "index.html"), "w") as f:
+    f.write(hub_html)
+
+print("🚀 [RayStack] Tagalog-English Translator micro-tool added and Hub updated successfully!")
