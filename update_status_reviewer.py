@@ -1,4 +1,6 @@
-import urllib.request
+import os
+
+status_script = """import urllib.request
 import json
 
 try:
@@ -13,3 +15,9 @@ try:
         print("   • Master Hub: Online (8081)")
 except Exception as e:
     print("❌ Ecosystem check failed:", e)
+"""
+
+with open(os.path.expanduser("~/saas-stack/ecosystem_status.py"), "w") as f:
+    f.write(status_script)
+
+print("🚀 [RayStack] Ecosystem status script updated with Code Reviewer port 8085.")
