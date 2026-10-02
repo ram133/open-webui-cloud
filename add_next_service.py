@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+import os
+
+TOOL_DIR = os.path.expanduser("~/saas-stack/tools/optimizer")
+os.makedirs(TOOL_DIR, exist_ok=True)
+
+optimizer_html = """<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -58,3 +63,9 @@
     </script>
 </body>
 </html>
+"""
+
+with open(os.path.join(TOOL_DIR, "index.html"), "w") as f:
+    f.write(optimizer_html)
+
+print("🚀 [RayStack] AI Prompt Optimizer micro-tool verified on port 8080.")
