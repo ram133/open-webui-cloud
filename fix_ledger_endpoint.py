@@ -1,4 +1,9 @@
-import http.server
+import os
+
+GATEWAY_PATH = os.path.expanduser("~/saas-stack/gateway.py")
+
+# Read existing gateway script if present, or write a complete one that includes the /ledger endpoint
+gateway_code = """import http.server
 import json
 import os
 
@@ -76,3 +81,9 @@ if __name__ == '__main__':
     server = http.server.HTTPServer(('0.0.0.0', PORT), GatewayHandler)
     print(f"🚀 [RayGateway] Running on port {PORT}...")
     server.serve_forever()
+"""
+
+with open(GATEWAY_PATH, "w") as f:
+    f.write(gateway_code)
+
+print("🚀 [RayStack] Gateway script updated with CORS and /ledger endpoint support.")
