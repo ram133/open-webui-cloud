@@ -1,5 +1,5 @@
 {
-    "total_revenue_coins": 1342,
+    "total_revenue_coins": 2013,
     "transactions": [
         {
             "item": "AI Productivity Suite Pass",
@@ -11,6 +11,12 @@
             "price": "671 Coins",
             "customer": "optimizer_client@ray.services",
             "input_data": "Write a python script to scrape a website"
+        },
+        {
+            "item": "Code Generator Pass",
+            "price": "671 Coins",
+            "customer": "coder_client@ray.services",
+            "input_data": "Write a script to monitor disk space"
         }
     ]
 }
