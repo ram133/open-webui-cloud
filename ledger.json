@@ -1,5 +1,5 @@
 {
-    "total_revenue_coins": 1342,
+    "total_revenue_coins": 2013,
     "transactions": [
         {
             "item": "Text Summarizer Pass",
@@ -12,6 +12,12 @@
             "price": "671 Coins",
             "customer": "translator_client@ray.services",
             "input_data": "Magandang araw sa ating lahat"
+        },
+        {
+            "item": "AI Code Reviewer Pass",
+            "price": "671 Coins",
+            "customer": "reviewer_client@ray.services",
+            "input_data": "def add(a, b): return a + b"
         }
     ]
 }
