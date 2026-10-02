@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+import os
+
+HUB_DIR = os.path.expanduser("~/saas-stack/tools/hub")
+os.makedirs(HUB_DIR, exist_ok=True)
+
+master_html = """<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -72,3 +77,9 @@
     </script>
 </body>
 </html>
+"""
+
+with open(os.path.join(HUB_DIR, "index.html"), "w") as f:
+    f.write(master_html)
+
+print("🚀 [RayStack] Master Hub deployed successfully at ~/saas-stack/tools/hub/index.html")
