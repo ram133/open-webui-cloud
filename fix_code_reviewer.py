@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+import os
+
+TOOL_DIR = os.path.expanduser("~/saas-stack/tools/reviewer")
+os.makedirs(TOOL_DIR, exist_ok=True)
+
+reviewer_html = """<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -58,3 +63,32 @@
     </script>
 </body>
 </html>
+"""
+
+with open(os.path.join(TOOL_DIR, "index.html"), "w") as f:
+    f.write(reviewer_html)
+
+# Update Master Hub at ~/saas-stack/tools/hub/index.html
+HUB_DIR = os.path.expanduser("~/saas-stack/tools/hub")
+hub_path = os.path.join(HUB_DIR, "index.html")
+
+if os.path.exists(hub_path):
+    with open(hub_path, "r") as f:
+        hub_html = f.read()
+    
+    card_html = """
+        <div class="card">
+            <div>
+                <h2>AI Code Reviewer</h2>
+                <p>Instant automated code quality analysis and security compliance verification.</p>
+            </div>
+            <a class="btn" href="http://localhost:8085" target="_blank">Launch Tool (671 Coins)</a>
+        </div>
+    """
+    
+    if "AI Code Reviewer" not in hub_html:
+        hub_html = hub_html.replace('</div>\n</body>', f'{card_html}\n    </div>\n</body>')
+        with open(hub_path, "w") as f:
+            f.write(hub_html)
+
+print("🚀 [RayStack] AI Code Reviewer micro-tool and Master Hub updated successfully!")
