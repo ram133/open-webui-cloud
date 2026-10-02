@@ -1,10 +1,16 @@
 {
-    "total_revenue_coins": 671,
+    "total_revenue_coins": 1342,
     "transactions": [
         {
             "item": "AI Productivity Suite Pass",
             "price": "671 Coins",
             "customer": "test_client@ray.services"
+        },
+        {
+            "item": "AI Prompt Optimizer Pass",
+            "price": "671 Coins",
+            "customer": "optimizer_client@ray.services",
+            "input_data": "Write a python script to scrape a website"
         }
     ]
 }
