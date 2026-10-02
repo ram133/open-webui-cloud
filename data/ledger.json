@@ -1,4 +1,10 @@
 {
-    "total_revenue_coins": 0,
-    "transactions": []
+    "total_revenue_coins": 671,
+    "transactions": [
+        {
+            "item": "AI Productivity Suite Pass",
+            "price": "671 Coins",
+            "customer": "test_client@ray.services"
+        }
+    ]
 }
