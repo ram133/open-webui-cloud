@@ -2,9 +2,16 @@ import http.server
 import socketserver
 import json
 import os
+import subprocess
 
 PORT = 8787
 LEDGER_PATH = os.path.expanduser("~/saas-stack/data/ledger.json")
+
+# Kill any existing process on port 8787 autonomously
+try:
+    subprocess.run(f"lsof -ti :{PORT} | xargs kill -9", shell=True, stderr=subprocess.DEVNULL)
+except Exception:
+    pass
 
 class ReusableTCPServer(socketserver.TCPServer):
     allow_reuse_address = True
