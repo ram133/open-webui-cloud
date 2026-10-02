@@ -6,6 +6,9 @@ import os
 PORT = 8787
 LEDGER_PATH = os.path.expanduser("~/saas-stack/data/ledger.json")
 
+class ReusableTCPServer(socketserver.TCPServer):
+    allow_reuse_address = True
+
 class GatewayHandler(http.server.SimpleHTTPRequestHandler):
     def do_POST(self):
         content_length = int(self.headers.get('Content-Length', 0))
@@ -46,6 +49,6 @@ class GatewayHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Headers', 'Content-Type')
         self.end_headers()
 
-with socketserver.TCPServer(("", PORT), GatewayHandler) as httpd:
+with ReusableTCPServer(("", PORT), GatewayHandler) as httpd:
     print(f"⚡ [RayGateway] Active on port {PORT}. Listening for 671-Coin transactions...")
     httpd.serve_forever()
