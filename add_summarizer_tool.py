@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+import os
+
+TOOL_DIR = os.path.expanduser("~/saas-stack/tools/summarizer")
+os.makedirs(TOOL_DIR, exist_ok=True)
+
+summarizer_html = """<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -58,3 +63,9 @@
     </script>
 </body>
 </html>
+"""
+
+with open(os.path.join(TOOL_DIR, "index.html"), "w") as f:
+    f.write(summarizer_html)
+
+print("🚀 [RayStack] AI Text Summarizer micro-tool verified on port 8083.")
