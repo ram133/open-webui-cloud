@@ -1,17 +1,11 @@
 {
-  "timestamp": "2026-10-08T20:11:04.413862Z",
+  "timestamp": "2026-10-09T00:21:00.307265Z",
   "activity": {
     "TEXCOOLBot": [],
-    "Ray2FB Bot": [
-      {
-        "bot": "Ray2FB Bot",
-        "chat_id": "7372546657",
-        "success": true
-      }
-    ],
+    "Ray2FB Bot": [],
     "0724 Bot": [],
     "RayoR": []
   },
-  "total_interactions": 1,
+  "total_interactions": 0,
   "total_unique_leads": 1
 }
