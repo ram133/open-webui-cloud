@@ -1,55 +1,11 @@
 {
-  "timestamp": "2026-10-18T00:00:22.185982Z",
+  "timestamp": "2026-10-18T03:54:00.835817Z",
   "activity": {
-    "TEXCOOLBot": [
-      {
-        "bot": "TEXCOOLBot",
-        "chat_id": "7372546657",
-        "success": true
-      },
-      {
-        "bot": "TEXCOOLBot",
-        "chat_id": "7372546657",
-        "success": true
-      }
-    ],
-    "Ray2FB Bot": [
-      {
-        "bot": "Ray2FB Bot",
-        "chat_id": "7372546657",
-        "success": true
-      },
-      {
-        "bot": "Ray2FB Bot",
-        "chat_id": "7372546657",
-        "success": true
-      }
-    ],
-    "0724 Bot": [
-      {
-        "bot": "0724 Bot",
-        "chat_id": "7372546657",
-        "success": true
-      },
-      {
-        "bot": "0724 Bot",
-        "chat_id": "7372546657",
-        "success": true
-      }
-    ],
-    "RayoR": [
-      {
-        "bot": "RayoR",
-        "chat_id": "7372546657",
-        "success": true
-      },
-      {
-        "bot": "RayoR",
-        "chat_id": "7372546657",
-        "success": true
-      }
-    ]
+    "TEXCOOLBot": [],
+    "Ray2FB Bot": [],
+    "0724 Bot": [],
+    "RayoR": []
   },
-  "total_interactions": 8,
+  "total_interactions": 0,
   "total_unique_leads": 2
 }
