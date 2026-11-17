@@ -1,11 +1,103 @@
 {
-  "timestamp": "2026-11-16T18:33:36.759307Z",
+  "timestamp": "2026-11-17T02:01:26.566349Z",
   "activity": {
-    "TEXCOOLBot": [],
-    "Ray2FB Bot": [],
+    "TEXCOOLBot": [
+      {
+        "bot": "TEXCOOLBot",
+        "chat_id": "7372546657",
+        "success": true
+      },
+      {
+        "bot": "TEXCOOLBot",
+        "chat_id": "7372546657",
+        "success": true
+      },
+      {
+        "bot": "TEXCOOLBot",
+        "chat_id": "7372546657",
+        "success": true
+      },
+      {
+        "bot": "TEXCOOLBot",
+        "chat_id": "7372546657",
+        "success": true
+      },
+      {
+        "bot": "TEXCOOLBot",
+        "chat_id": "7372546657",
+        "success": true
+      },
+      {
+        "bot": "TEXCOOLBot",
+        "chat_id": "7372546657",
+        "success": true
+      },
+      {
+        "bot": "TEXCOOLBot",
+        "chat_id": "7372546657",
+        "success": true
+      },
+      {
+        "bot": "TEXCOOLBot",
+        "chat_id": "7372546657",
+        "success": true
+      },
+      {
+        "bot": "TEXCOOLBot",
+        "chat_id": "7372546657",
+        "success": true
+      },
+      {
+        "bot": "TEXCOOLBot",
+        "chat_id": "7372546657",
+        "success": true
+      },
+      {
+        "bot": "TEXCOOLBot",
+        "chat_id": "7372546657",
+        "success": true
+      },
+      {
+        "bot": "TEXCOOLBot",
+        "chat_id": "7372546657",
+        "success": true
+      },
+      {
+        "bot": "TEXCOOLBot",
+        "chat_id": "7372546657",
+        "success": true
+      },
+      {
+        "bot": "TEXCOOLBot",
+        "chat_id": "7372546657",
+        "success": true
+      },
+      {
+        "bot": "TEXCOOLBot",
+        "chat_id": "7372546657",
+        "success": true
+      }
+    ],
+    "Ray2FB Bot": [
+      {
+        "bot": "Ray2FB Bot",
+        "chat_id": "7372546657",
+        "success": true
+      },
+      {
+        "bot": "Ray2FB Bot",
+        "chat_id": "7372546657",
+        "success": true
+      },
+      {
+        "bot": "Ray2FB Bot",
+        "chat_id": "7372546657",
+        "success": true
+      }
+    ],
     "0724 Bot": [],
     "RayoR": []
   },
-  "total_interactions": 0,
+  "total_interactions": 18,
   "total_unique_leads": 3
 }
