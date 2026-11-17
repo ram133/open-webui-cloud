@@ -1,77 +1,7 @@
 {
-  "timestamp": "2026-11-17T02:01:26.566349Z",
+  "timestamp": "2026-11-17T10:29:12.586629Z",
   "activity": {
     "TEXCOOLBot": [
-      {
-        "bot": "TEXCOOLBot",
-        "chat_id": "7372546657",
-        "success": true
-      },
-      {
-        "bot": "TEXCOOLBot",
-        "chat_id": "7372546657",
-        "success": true
-      },
-      {
-        "bot": "TEXCOOLBot",
-        "chat_id": "7372546657",
-        "success": true
-      },
-      {
-        "bot": "TEXCOOLBot",
-        "chat_id": "7372546657",
-        "success": true
-      },
-      {
-        "bot": "TEXCOOLBot",
-        "chat_id": "7372546657",
-        "success": true
-      },
-      {
-        "bot": "TEXCOOLBot",
-        "chat_id": "7372546657",
-        "success": true
-      },
-      {
-        "bot": "TEXCOOLBot",
-        "chat_id": "7372546657",
-        "success": true
-      },
-      {
-        "bot": "TEXCOOLBot",
-        "chat_id": "7372546657",
-        "success": true
-      },
-      {
-        "bot": "TEXCOOLBot",
-        "chat_id": "7372546657",
-        "success": true
-      },
-      {
-        "bot": "TEXCOOLBot",
-        "chat_id": "7372546657",
-        "success": true
-      },
-      {
-        "bot": "TEXCOOLBot",
-        "chat_id": "7372546657",
-        "success": true
-      },
-      {
-        "bot": "TEXCOOLBot",
-        "chat_id": "7372546657",
-        "success": true
-      },
-      {
-        "bot": "TEXCOOLBot",
-        "chat_id": "7372546657",
-        "success": true
-      },
-      {
-        "bot": "TEXCOOLBot",
-        "chat_id": "7372546657",
-        "success": true
-      },
       {
         "bot": "TEXCOOLBot",
         "chat_id": "7372546657",
@@ -83,21 +13,11 @@
         "bot": "Ray2FB Bot",
         "chat_id": "7372546657",
         "success": true
-      },
-      {
-        "bot": "Ray2FB Bot",
-        "chat_id": "7372546657",
-        "success": true
-      },
-      {
-        "bot": "Ray2FB Bot",
-        "chat_id": "7372546657",
-        "success": true
       }
     ],
     "0724 Bot": [],
     "RayoR": []
   },
-  "total_interactions": 18,
+  "total_interactions": 2,
   "total_unique_leads": 3
 }
