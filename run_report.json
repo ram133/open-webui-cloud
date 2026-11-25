@@ -1,27 +1,11 @@
 {
-  "timestamp": "2026-11-25T00:46:59.330965Z",
+  "timestamp": "2026-11-25T09:14:45.180981Z",
   "activity": {
     "TEXCOOLBot": [],
     "Ray2FB Bot": [],
-    "0724 Bot": [
-      {
-        "bot": "0724 Bot",
-        "chat_id": "7372546657",
-        "success": true
-      },
-      {
-        "bot": "0724 Bot",
-        "chat_id": "-1004352321063",
-        "success": false
-      },
-      {
-        "bot": "0724 Bot",
-        "chat_id": "-1004352321063",
-        "success": false
-      }
-    ],
+    "0724 Bot": [],
     "RayoR": []
   },
-  "total_interactions": 3,
+  "total_interactions": 0,
   "total_unique_leads": 4
 }
